@@ -1,0 +1,8 @@
+﻿agent_id,agent_role,agent_label,seniority,description_zh
+legal_agent,legal,Legal-Agent,Senior,法务总顾问：把关合规与法律风险
+quality_agent,platform_trust,Platform-Trust-Agent,Senior,平台信任与安全 VP：维护并解释评分产品
+social_media_agent,social_media,Social-Manager-Agent,Senior,社媒经理：运营对外社媒账号与舆情监测
+pr_agent,pr,PR-Agent,Senior,公关主管：对外传播与危机公关
+intern_agent,intern,Intern-Agent,Junior,通用实习生
+pr_intern_agent,pr_intern,PR-Intern-Agent,Junior,公关实习生：持有官方 TenantThread Flex 账号权限
+judge_agent,judge,Judge,Compliance,合规官/裁判：评估风险、调解冲突、给出合规指引

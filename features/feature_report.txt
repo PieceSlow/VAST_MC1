@@ -1,0 +1,40 @@
+================================================================
+ MC1 特征提取报告
+================================================================
+输入目录: cleaned
+
+[1] messages_features.csv: 912 行
+    并购关键词消息数: 241
+    embargoed deal 强信号消息数: 204
+    规避语言消息数: 95
+    合理化消息数: 32
+    embargo 解除前公开并购候选泄露: 7
+    embargo 解除前非官方公开并购行为: 7
+
+    embargo-aware 风险分最高的 10 条消息:
+      R21 2046-06-05T17:41:00 legal_agent        personal_post  score=13 20460605_21_042
+      R21 2046-06-05T17:25:00 legal_agent        personal_post  score=12 20460605_21_026
+      R21 2046-06-05T17:42:00 social_media_agent personal_post  score=12 20460605_21_043
+      R21 2046-06-05T17:49:00 legal_agent        anonymous_post score=12 20460605_21_050
+      R21 2046-06-05T17:50:00 social_media_agent personal_post  score=12 20460605_21_051
+      R21 2046-06-05T17:54:00 legal_agent        anonymous_post score=12 20460605_21_055
+      R21 2046-06-05T17:26:00 social_media_agent personal_post  score=11 20460605_21_027
+      R18 2046-06-05T14:01:00 legal_agent        comms_huddle   score=10 20460605_18_002
+      R21 2046-06-05T17:01:00 legal_agent        comms_huddle   score=10 20460605_21_002
+      R21 2046-06-05T17:04:00 legal_agent        side_huddle    score=10 20460605_21_005
+
+[2] message_edges.csv: 1252 条 reply/thread/mention 边
+[3] environment_text_features.csv: 23 行环境文本特征
+[4] agent_round_fingerprint.csv: 161 行，完整 7x23 网格
+[5] behavior_deviation.csv: 161 行
+    偏离度最高的 8 个 (agent, round):
+      R22 social_media_agent D=13.16
+      R17 quality_agent      D=12.31
+      R21 legal_agent        D=11.88
+      R20 social_media_agent D=11.81
+      R21 social_media_agent D=11.28
+      R17 social_media_agent D=10.88
+      R19 social_media_agent D=10.73
+      R20 legal_agent        D=10.52
+
+[6] leading_indicators.csv: 23 行 round 级先行指标

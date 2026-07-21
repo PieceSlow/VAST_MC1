@@ -1,0 +1,36 @@
+================================================================
+ MC1 数据清洗报告
+================================================================
+输入文件      : VAST_Challenge_2026_MC1\MC1_final_00.json
+round 数      : 23
+
+-- 摊平结果 --
+messages 行数      : 912
+environment 行数   : 23
+participants 行数  : 100
+
+-- responding_to 清洗 --
+  null（无回复对象）           : 163
+  message_id 且可信（指向过去）: 309
+  message_id 但【指向未来·损坏】: 174   （集中在危机 round 13-21，全部错指向 round 22）
+  @提及（需解析角色）          : 266
+  悬空（message_id 不存在）    : 0
+  → 已新增列：responding_to_type / _valid / _is_future / _resolved_agents
+  → thread_parent：可信处用 responding_to，其余用同通道最近消息启发式补
+
+-- 其他修复 --
+  internal_state 拆成 reacting/rationalizing/deliberating 三列（86 条非空）
+  stock_price / percent_change 去掉 $ 和 % 转为浮点（stock 5 个 None，pct 6 个 None）
+  股价离群点（>100，疑似录入错误）: [(15, 180.0)]
+  declared_action 拆成 verb + text 两列
+  角色名映射：social_manager/social_media → social_media_agent；platform_trust → quality_agent
+  sentiment 有序编码列 sentiment_ordinal 已加入 environment 表
+  重复公开帖标记：完全重复 2 条；近重复/扩写 3 条（保留，不删除）
+
+-- 输出文件（目录 cleaned）--
+  messages_clean.csv
+  environment_clean.csv
+  participants_clean.csv
+  agents_dim.csv
+  cleaning_report.txt
+  mc1_clean.json
