@@ -125,6 +125,16 @@ def normalize_ws(s):
     return re.sub(r"\s+", " ", str(s)).strip()
 
 
+def normalize_content(value):
+    """Treat placeholder content values as empty message text."""
+    if value is None:
+        return ""
+    text = str(value)
+    if text.strip().lower() in {"none", "null", "nan"}:
+        return ""
+    return text
+
+
 # ------------------------------------------------------------------ #
 # 2. 主流程                                                           #
 # ------------------------------------------------------------------ #
@@ -233,7 +243,7 @@ def main():
                     recips_resolved.append(ROLE_TOKEN_TO_AGENT_ID.get(x, x))
 
             channel = c["channel"]
-            content = c.get("content") or ""
+            content = normalize_content(c.get("content"))
 
             msg_rows.append({
                 "message_id":        c["message_id"],
@@ -283,10 +293,18 @@ def main():
     #   (b) mention 型 / 损坏的 future 型 / null → 父节点置空（留给特征脚本用启发式补），
     #       这里给出一个 "同通道最近一条其他 agent 消息" 的启发式父节点，便于危机窗口画线程。
     msgs = msgs.sort_values(["round_idx", "timestamp", "message_id"]).reset_index(drop=True)
+    def has_value(value):
+        return value is not None and pd.notna(value) and str(value) != ""
+
     parent = {}
     # 先放可信父节点
-    valid_parent = dict(zip(msgs["message_id"],
-                            msgs.apply(lambda x: x["responding_to_raw"] if x["responding_to_valid"] else None, axis=1)))
+    valid_parent = {}
+    for _, row in msgs.iterrows():
+        valid_parent[row["message_id"]] = (
+            row["responding_to_raw"]
+            if bool(row["responding_to_valid"]) and has_value(row["responding_to_raw"])
+            else None
+        )
     # 启发式：为 mention / future / null，找同 round 同 channel 里此前最近一条“他人”消息
     heuristic_parent = {}
     by_round = {ri: g for ri, g in msgs.groupby("round_idx")}
@@ -295,8 +313,9 @@ def main():
         recent_in_channel = {}
         for _, row in g.iterrows():
             mid = row["message_id"]
-            if valid_parent.get(mid):
-                heuristic_parent[mid] = valid_parent[mid]
+            valid_mid = valid_parent.get(mid)
+            if has_value(valid_mid):
+                heuristic_parent[mid] = valid_mid
             else:
                 cand = recent_in_channel.get(row["channel"])
                 heuristic_parent[mid] = cand  # 可能为 None
@@ -304,7 +323,7 @@ def main():
     msgs["thread_parent"] = msgs["message_id"].map(heuristic_parent)
     msgs["thread_parent_source"] = msgs.apply(
         lambda x: "responding_to" if x["responding_to_valid"] else
-                  ("heuristic" if x["thread_parent"] else "none"), axis=1)
+                  ("heuristic" if has_value(x["thread_parent"]) else "none"), axis=1)
 
     # ---- 2.3b 标记重复 / 近重复公开帖（保留，不删除） ----
     msgs["content_norm"] = msgs["content"].map(normalize_ws)
@@ -375,8 +394,10 @@ def main():
 
     # sentiment 有序编码（neutral < cautious < ... < CRITICAL），便于画压力曲线
     sent_order = {"neutral": 0, "cautious": 1, "concerned": 2, "negative": 3,
-                  "LOW": 3, "HIGH": 4, "CRITICAL": 5, "RECOVERING": 2}
-    env["sentiment_ordinal"] = env["sentiment"].map(lambda s: sent_order.get(s, None))
+                  "low": 3, "high": 4, "critical": 5, "recovering": 2}
+    env["sentiment_ordinal"] = env["sentiment"].map(
+        lambda s: sent_order.get(str(s).strip().lower(), None) if s is not None else None
+    )
 
     # ---- 2.5 participants 表 ----
     part_rows = []

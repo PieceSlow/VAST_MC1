@@ -30,6 +30,7 @@
 """
 
 import argparse
+from collections import Counter
 import os
 import re
 
@@ -184,6 +185,7 @@ MONEY_RE = re.compile(r"\$\s?\d[\d,\.]*")
 TIME_RE = re.compile(
     r"\b\d{1,2}:\d{2}\s*(?:AM|PM|am|pm)?\b|\b\d{1,2}\s*(?:AM|PM|am|pm)\b"
 )
+KEYWORD_PATTERN_CACHE = {}
 
 
 def clean_text(value):
@@ -203,9 +205,23 @@ def combine_fields(row, fields):
     return " ".join(clean_text(row.get(field)) for field in fields if clean_text(row.get(field)))
 
 
+def keyword_patterns(keywords):
+    key = tuple(keywords)
+    if key not in KEYWORD_PATTERN_CACHE:
+        patterns = []
+        for keyword in keywords:
+            k = clean_text(keyword).lower()
+            if k == "escalat":
+                patterns.append(re.compile(r"\bescalat\w*\b"))
+            else:
+                patterns.append(re.compile(r"(?<![\w])" + re.escape(k) + r"(?![\w])"))
+        KEYWORD_PATTERN_CACHE[key] = patterns
+    return KEYWORD_PATTERN_CACHE[key]
+
+
 def count_hits(text, keywords):
     t = clean_text(text).lower()
-    return sum(t.count(k) for k in keywords)
+    return sum(len(pattern.findall(t)) for pattern in keyword_patterns(keywords))
 
 
 def any_hit(text, keywords):
@@ -239,10 +255,11 @@ def main():
         if not os.path.exists(path):
             raise SystemExit(f"[错误] 找不到 {path}，请先运行 clean_data(1).py。")
 
-    msgs = pd.read_csv(mpath)
-    env = pd.read_csv(epath)
-    parts = pd.read_csv(ppath)
-    agents = pd.read_csv(apath)
+    read_opts = {"keep_default_na": False, "na_values": [""]}
+    msgs = pd.read_csv(mpath, **read_opts)
+    env = pd.read_csv(epath, **read_opts)
+    parts = pd.read_csv(ppath, **read_opts)
+    agents = pd.read_csv(apath, **read_opts)
     os.makedirs(args.outdir, exist_ok=True)
 
     report = []
@@ -362,6 +379,7 @@ def main():
                     "target_entity": id_to_agent.get(raw_parent, raw_parent),
                     "channel": row["channel"],
                     "edge_source": "responding_to_valid",
+                    "edge_weight": 1,
                 }
             )
         if parent_mid and parent_mid != raw_parent:
@@ -377,9 +395,10 @@ def main():
                     "target_entity": id_to_agent.get(parent_mid, parent_mid),
                     "channel": row["channel"],
                     "edge_source": clean_text(row.get("thread_parent_source")),
+                    "edge_weight": 1,
                 }
             )
-        for token in MENTION_RE.findall(clean_text(row.get("content"))):
+        for token, weight in Counter(MENTION_RE.findall(clean_text(row.get("content")))).items():
             target_agent = resolve_mention_token(token)
             edge_rows.append(
                 {
@@ -393,6 +412,7 @@ def main():
                     "target_entity": target_agent or f"@{token}",
                     "channel": row["channel"],
                     "edge_source": "content_mention",
+                    "edge_weight": int(weight),
                 }
             )
     edges = pd.DataFrame(edge_rows)

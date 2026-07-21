@@ -4,9 +4,9 @@
 输入目录: cleaned
 
 [1] messages_features.csv: 912 行
-    并购关键词消息数: 241
-    embargoed deal 强信号消息数: 204
-    规避语言消息数: 95
+    并购关键词消息数: 239
+    embargoed deal 强信号消息数: 203
+    规避语言消息数: 87
     合理化消息数: 32
     embargo 解除前公开并购候选泄露: 7
     embargo 解除前非官方公开并购行为: 7
@@ -23,18 +23,18 @@
       R21 2046-06-05T17:01:00 legal_agent        comms_huddle   score=10 20460605_21_002
       R21 2046-06-05T17:04:00 legal_agent        side_huddle    score=10 20460605_21_005
 
-[2] message_edges.csv: 1252 条 reply/thread/mention 边
+[2] message_edges.csv: 1608 条 reply/thread/mention 边
 [3] environment_text_features.csv: 23 行环境文本特征
 [4] agent_round_fingerprint.csv: 161 行，完整 7x23 网格
 [5] behavior_deviation.csv: 161 行
     偏离度最高的 8 个 (agent, round):
+      R21 legal_agent        D=13.40
       R22 social_media_agent D=13.16
       R17 quality_agent      D=12.31
-      R21 legal_agent        D=11.88
+      R20 legal_agent        D=11.97
       R20 social_media_agent D=11.81
       R21 social_media_agent D=11.28
       R17 social_media_agent D=10.88
-      R19 social_media_agent D=10.73
-      R20 legal_agent        D=10.52
+      R19 social_media_agent D=10.64
 
 [6] leading_indicators.csv: 23 行 round 级先行指标
