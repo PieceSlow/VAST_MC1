@@ -1,0 +1,55 @@
+VAST MC1 organized-copy validation report
+Generated: 2026-07-24T19:36:28
+
+SOURCE SAFETY
+-------------
+Source archive:
+  VAST_MC1-main (1).zip
+Source archive SHA-256:
+  b83e250cdb0af2d0335d0fb7abe321d4459ee46772f5d3bfed1d75f9036264a6
+Original source archive modified:
+  no
+
+TESTED COMMANDS
+---------------
+python src/data/clean_data.py --input data/raw/MC1_final_00.json --outdir data/cleaned
+python src/features/extract_features.py --indir data/cleaned --outdir data/features
+
+Execution result:
+  clean_data.py return code = 0
+  extract_features.py return code = 0
+
+OUTPUT COMPARISON
+-----------------
+All regenerated CSV tables are byte-identical to the bundled CSV tables:
+  true
+
+CSV files checked:
+  - data/cleaned/agents_dim.csv: match
+  - data/cleaned/environment_clean.csv: match
+  - data/cleaned/messages_clean.csv: match
+  - data/cleaned/participants_clean.csv: match
+  - data/features/agent_round_fingerprint.csv: match
+  - data/features/behavior_deviation.csv: match
+  - data/features/environment_text_features.csv: match
+  - data/features/leading_indicators.csv: match
+  - data/features/message_edges.csv: match
+  - data/features/messages_features.csv: match
+
+The regenerated mc1_clean.json is equivalent after normalizing missing-value
+serialization (NaN and null are treated as the same missing value):
+  true
+
+The two text reports are not byte-identical:
+  cleaning_report.txt: false
+  feature_report.txt: false
+
+Reason:
+  The report files embed the input/output paths used during execution. The data
+  counts and generated CSV outputs remain unchanged.
+
+CONCLUSION
+----------
+The copied scripts execute successfully under the new directory structure when
+the README commands are used. The core tabular analysis outputs are unchanged.
+Source-file relocation integrity is documented in file_integrity_sha256.csv.

@@ -1,0 +1,72 @@
+VAST_MC1_organized/
+├── analysis/
+│   ├── q1/
+│   │   ├── answer_cn.md
+│   │   ├── answer_en.md
+│   │   └── presentation_script_cn.md
+│   ├── q2/
+│   │   └── STATUS.md
+│   ├── q3/
+│   │   └── STATUS.md
+│   └── evidence_index_template.csv
+├── data/
+│   ├── cleaned/
+│   │   ├── agents_dim.csv
+│   │   ├── cleaning_report.txt
+│   │   ├── environment_clean.csv
+│   │   ├── mc1_clean.json
+│   │   ├── messages_clean.csv
+│   │   └── participants_clean.csv
+│   ├── features/
+│   │   ├── agent_round_fingerprint.csv
+│   │   ├── behavior_deviation.csv
+│   │   ├── environment_text_features.csv
+│   │   ├── feature_report.txt
+│   │   ├── leading_indicators.csv
+│   │   ├── message_edges.csv
+│   │   └── messages_features.csv
+│   └── raw/
+│       └── MC1_final_00.json
+├── docs/
+│   ├── reference/
+│   │   ├── mc1_data_description.md
+│   │   └── original_project_readme.md
+│   ├── file_integrity_sha256.csv
+│   ├── reorganization_manifest.csv
+│   └── validation_report.txt
+├── outputs/
+│   ├── figures/
+│   │   ├── q1/
+│   │   │   ├── q1_actor_sequence_en.png
+│   │   │   ├── q1_control_bypass_en.png
+│   │   │   ├── q1_timeline_cn.png
+│   │   │   ├── q1_timeline_cn.svg
+│   │   │   ├── q1_timeline_en.png
+│   │   │   └── q1_timeline_en.svg
+│   │   ├── q2/
+│   │   │   └── q2_behavior_dna_en.png
+│   │   └── q3/
+│   └── reports/
+│       ├── MC1_analysis.docx
+│       └── VAST_MC1_已完成工作梳理.docx
+├── src/
+│   ├── data/
+│   │   └── clean_data.py
+│   ├── features/
+│   │   └── extract_features.py
+│   ├── utils/
+│   │   └── README.md
+│   └── visualization/
+│       └── README.md
+├── submission/
+│   ├── assets/
+│   │   ├── css/
+│   │   ├── data/
+│   │   ├── images/
+│   │   └── js/
+│   ├── template/
+│   │   └── original_answer_sheet.htm
+│   └── README.md
+├── .gitignore
+├── README.md
+└── requirements.txt

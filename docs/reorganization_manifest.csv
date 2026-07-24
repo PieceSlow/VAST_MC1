@@ -1,0 +1,47 @@
+﻿original_path,organized_path,action,note
+VAST_Challenge_2026_MC1/MC1_final_00.json,data/raw/MC1_final_00.json,copied_and_relocated,Canonical raw dataset; file content preserved byte-for-byte.
+cleaned/agents_dim.csv,data/cleaned/agents_dim.csv,copied_and_relocated,
+cleaned/cleaning_report.txt,data/cleaned/cleaning_report.txt,copied_and_relocated,
+cleaned/environment_clean.csv,data/cleaned/environment_clean.csv,copied_and_relocated,
+cleaned/mc1_clean.json,data/cleaned/mc1_clean.json,copied_and_relocated,
+cleaned/messages_clean.csv,data/cleaned/messages_clean.csv,copied_and_relocated,
+cleaned/participants_clean.csv,data/cleaned/participants_clean.csv,copied_and_relocated,
+features/agent_round_fingerprint.csv,data/features/agent_round_fingerprint.csv,copied_and_relocated,
+features/behavior_deviation.csv,data/features/behavior_deviation.csv,copied_and_relocated,
+features/environment_text_features.csv,data/features/environment_text_features.csv,copied_and_relocated,
+features/feature_report.txt,data/features/feature_report.txt,copied_and_relocated,
+features/leading_indicators.csv,data/features/leading_indicators.csv,copied_and_relocated,
+features/message_edges.csv,data/features/message_edges.csv,copied_and_relocated,
+features/messages_features.csv,data/features/messages_features.csv,copied_and_relocated,
+clean_data(1).py,src/data/clean_data.py,copied_and_relocated,Renamed at the path level only; source bytes are unchanged.
+extract_features.py,src/features/extract_features.py,copied_and_relocated,Source bytes are unchanged.
+Q1/Q1_answer_CN.md,analysis/q1/answer_cn.md,copied_and_relocated,
+Q1/Q1_answer_EN.md,analysis/q1/answer_en.md,copied_and_relocated,
+Q1/teacher_presentation_script_CN.md,analysis/q1/presentation_script_cn.md,copied_and_relocated,
+Q1/q1_timeline_v2_cn.png,outputs/figures/q1/q1_timeline_cn.png,copied_and_relocated,Simplified filename; image bytes unchanged.
+Q1/q1_timeline_v2_cn.svg,outputs/figures/q1/q1_timeline_cn.svg,copied_and_relocated,Simplified filename; SVG bytes unchanged.
+Q1/q1_timeline_v2_en.png,outputs/figures/q1/q1_timeline_en.png,copied_and_relocated,Simplified filename; image bytes unchanged.
+Q1/q1_timeline_v2_en.svg,outputs/figures/q1/q1_timeline_en.svg,copied_and_relocated,Simplified filename; SVG bytes unchanged.
+Q1/q1_actor_sequence_en.png,outputs/figures/q1/q1_actor_sequence_en.png,copied_and_relocated,
+Q1/q1_control_bypass_en.png,outputs/figures/q1/q1_control_bypass_en.png,copied_and_relocated,
+visual_picture/2_1.png,outputs/figures/q2/q2_behavior_dna_en.png,copied_and_relocated,Descriptive filename added; image bytes unchanged.
+MC1_analysis.docx,outputs/reports/MC1_analysis.docx,copied_and_relocated,
+,outputs/reports/VAST_MC1_已完成工作梳理.docx,new_generated_file,Project review document generated during the current conversation.
+VAST_Challenge_2026_MC1/mc1 data description.md,docs/reference/mc1_data_description.md,copied_and_relocated,
+README.md,docs/reference/original_project_readme.md,copied_and_relocated,The original two-line README is archived here; a new project README is placed at the root.
+VAST_Challenge_2026_MC1/VAST Challenge 2026 MC1 Answer Sheet.htm,submission/template/original_answer_sheet.htm,copied_and_relocated,
+VAST_Challenge_2026_MC1/.DS_Store,,duplicate_or_junk_omitted,macOS metadata file; intentionally excluded.
+visual_picture/1_1.png,outputs/figures/q1/q1_timeline_en.png,duplicate_or_junk_omitted,Exact duplicate of Q1/q1_timeline_v2_en.png.
+visual_picture/1_2.png,outputs/figures/q1/q1_actor_sequence_en.png,duplicate_or_junk_omitted,Exact duplicate of Q1/q1_actor_sequence_en.png.
+visual_picture/1_3.png,outputs/figures/q1/q1_control_bypass_en.png,duplicate_or_junk_omitted,Exact duplicate of Q1/q1_control_bypass_en.png.
+,README.md,new_generated_file,"New root README describing structure, status, commands, and conventions."
+,requirements.txt,new_generated_file,Minimal dependencies required by the existing data scripts.
+,.gitignore,new_generated_file,Recommended repository ignore rules.
+,analysis/q2/STATUS.md,new_generated_file,Transparent placeholder describing existing Q2 work and missing deliverables.
+,analysis/q3/STATUS.md,new_generated_file,Transparent placeholder describing existing Q3 data and missing deliverables.
+,src/visualization/README.md,new_generated_file,Planned location and conventions for reproducible plotting scripts.
+,src/utils/README.md,new_generated_file,Explains the planned shared-utility directory without altering existing code.
+,submission/README.md,new_generated_file,Explains the final-submission workspace and prevents confusion with an unfinished index.htm.
+,analysis/evidence_index_template.csv,new_generated_file,Blank evidence-index template for traceable question-level evidence.
+,docs/validation_report.txt,new_generated_file,Execution test confirming that the copied scripts run using the new directory layout.
+,docs/project_tree.txt,new_generated_file,Text rendering of the organized project tree.
